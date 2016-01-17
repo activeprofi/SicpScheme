@@ -1,4 +1,4 @@
 # Sicp
 Sicp Exersices by Me ^_^
 
-All ex's run under Racket!
+Chapter 1 ex's - Racket
