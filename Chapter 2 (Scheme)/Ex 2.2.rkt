@@ -32,6 +32,15 @@
 (define (end-segment segment)
   (cdr segment))
 
+(define (average a b)
+  (/ (+ a b) 2))
+
+(define (midpoint-segment segment)
+  (make-point (average (x-point (start-segment segment))
+                       (x-point (end-segment segment)))
+              (average (y-point (start-segment segment))
+                       (y-point (end-segment segment)))))
+
 ;-------------------------------------------------------------------
 
 (define (make-point x y)
@@ -77,10 +86,16 @@
 (check-equal? (y-point (make-point 0 0)) 0 "y-point test 1")
 (check-equal? (y-point (make-point -5 8)) 8 "y-point test 2")
 
-;-------------------------------------------------------------------
+;; test midpoint-segment
+(check-equal? (midpoint-segment (make-segment (make-point 0 0) (make-point 6 6))) (cons 3 3) "midpoint-segment test 1")
+(check-equal? (midpoint-segment (make-segment (make-point -3 2) (make-point 7 8))) (cons 2 5) "midpoint-segment test 1")
 
+;-------------------------------------------------------------------
+#;
 (print-point (make-point 0 0))
+#;
 (print-point (make-point -5 0))
+#;
 (print-point (make-point -8 -10))
 
 ;===================================================================
