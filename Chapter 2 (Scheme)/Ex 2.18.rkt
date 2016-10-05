@@ -17,10 +17,26 @@
 
 ;-------------------------------------------------------------------
 
+(define (append list1 list2)
+  (if (null? list1)
+      list2
+      (cons (car list1) (append (cdr list1) list2))))
+
+(define (reverse-recur items)
+  (if (null? items)
+      null
+      (append (reverse (cdr items)) (list (car items)))))
+
+;-------------------------------------------------------------------
+
 ;===================================================================
 
 (check-equal? (reverse (list 5)) (list 5))
 (check-equal? (reverse (list 1 2 3 4 5)) (list 5 4 3 2 1))
 (check-equal? (reverse (list 1 2)) (list 2 1))
+
+(check-equal? (reverse-recur (list 5)) (list 5))
+(check-equal? (reverse-recur (list 1 2 3 4 5)) (list 5 4 3 2 1))
+(check-equal? (reverse-recur (list 1 2)) (list 2 1))
 
 ;===================================================================
