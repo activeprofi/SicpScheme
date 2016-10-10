@@ -13,22 +13,21 @@
 ; (1 2 3 4 1 2 3 4)
 ;-------------------------------------------------------------------
 
-(define (map proc items)
-  (if (null? items)
-      null
-      (cons (proc (car items)) (map proc (cdr items)))))
-
 (define (append list1 list2)
   (if (null? list1) list2
       (cons (car list1) (append (cdr list1) list2))))
 
-(define (fringe items)
-  (define (fringe-iter l result)
-    (cond [(null? l) result]
-          [(not (pair? l)) (cons l result)]
-          [else (fringe-iter (car l) (fringe-iter (cdr l) result))]))
-  (fringe-iter items null))
-      
+(define (fringe t)
+  (define (fringe-recur items)
+    (let ([head (car t)]
+          [tail (cdr t)])
+      (if (pair? head)
+          (append (fringe head) (fringe tail))
+          (append (list head) (fringe tail)))))
+  (cond [(null? t) null]
+        [(not (pair? t)) t]
+        [else (fringe-recur t)]))
+
 ;-------------------------------------------------------------------
 
 ;===================================================================

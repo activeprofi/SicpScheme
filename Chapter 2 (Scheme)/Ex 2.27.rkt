@@ -15,36 +15,18 @@
 ; ((4 3) (2 1))
 ;-------------------------------------------------------------------
 
-(define (append list1 list2)
-  (if (null? list1)
-      list2
-      (cons (car list1) (append (cdr list1) list2))))
+(define (append l1 l2)
+  (if (null? l1)
+      l2
+      (cons (car l1) (append (cdr l1) l2))))
 
-(define (map proc items)
-  (if (null? items)
-      null
-      (cons (proc (car items)) (map proc (cdr items)))))
-
-(define (reverse items)
-  (define (reverse-iter items acc)
-    (if (null? items) acc
-        (reverse-iter (cdr items) (cons (car items) acc))))
-  (reverse-iter items null))
-
-;-------------------------------------------------------------------
-
-; (define (deep-reverse items)
-;   (if (list? items) (map deep-reverse (reverse items))
-;       items))
-
-(define (deep-reverse items)
-  (cond [(null? items) null]
-        [(pair? (car items))
-         (append (deep-reverse (cdr items))
-                 (list (deep-reverse (car items))))]
-        [else (append (deep-reverse (cdr items))
-                      (list (car items)))]))
-      
+(define (deep-reverse t)
+  (cond [(null? t) null]
+        [(let ([first (car t)]
+               [tail (cdr t)])
+               (if (pair? first)
+                   (append (deep-reverse tail) (list (deep-reverse first)))
+                   (append (deep-reverse tail) (list first))))]))
 
 ;-------------------------------------------------------------------
 
