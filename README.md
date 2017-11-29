@@ -1,2 +1,2 @@
 # Sicp
-Sicp Exersices by Dmytro Pavlenko
+Sicp Exersices.
